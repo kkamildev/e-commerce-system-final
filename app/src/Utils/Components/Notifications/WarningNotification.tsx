@@ -1,17 +1,42 @@
-import { faCircleExclamation } from "@fortawesome/free-solid-svg-icons";
+import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import type { FC } from "react";
+import {animate} from 'animejs'; 
+import { useEffect, useRef, type FC } from "react";
 
 
 type Props = {
-    content:string
+    content:string,
+    enableAnimation?:boolean,
+    style?:string,
+    iconStyle?:string
 }
 
-const WarningNotification : FC<Props> = ({content}) => {
+const WarningNotification : FC<Props> = ({content, enableAnimation = true, iconStyle = "", style = ""}) => {
+
+    const boxRef = useRef(null);
+    useEffect(() => {
+        if (!boxRef.current && enableAnimation) return;
+
+
+        const animation = animate(boxRef.current, {
+            translateX: ["-10", "0"],
+            opacity:["0", "1"],
+            duration: 700,
+            ease: 'inOutQuad',
+            loop: false,
+            alternate: true
+        });
+
+
+        return () => {
+            animation.revert();
+        };
+    }, []);
+
     return (
         <section className="flex items-center justify-start">
-            <p className="bg-yellow-500 border-2 border-yellow-800 m-2 p-1 font-bold text-yellow-950 rounded-md flex items-center gap-x-3">
-                <FontAwesomeIcon icon={faCircleExclamation} className="text-2xl"/> {content}
+            <p ref={boxRef} className={`bg-yellow-500 border-2 border-yellow-800 m-2 p-1 font-bold text-yellow-950 rounded-md flex items-center gap-x-3 ${style}`}>
+                <FontAwesomeIcon icon={faExclamationCircle} className={`text-2xl ${iconStyle}`}/> {content}
             </p>
         </section>
     )

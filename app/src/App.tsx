@@ -1,6 +1,5 @@
 import { useState, type FC } from "react";
-import InputField from "./Utils/Components/Input/InputField";
-import { faCoffee } from "@fortawesome/free-solid-svg-icons";
+import SelectField from "./Utils/Components/Input/SelectField";
 
 type Props = {
 
@@ -12,17 +11,16 @@ const App : FC<Props> = ({}) => {
 
     return (
         <>
-            <InputField
+            <SelectField
                 title="Hello world"
                 subtitle="(password)"
-                icon={faCoffee}
                 style="max-w-[300px]"
                 iconStyle='text-green-500!'
                 placeholder='Type something...'
-                type='password'
                 id='input'
                 value={value}
-                onChange={(value) => setValue(value)}
+                onChange={(value, key) => setValue(value)}
+                options={[{key:"Hello"}, {key:"Dzień dobry", value:"dzien dobry"}]}
                 errors={["Invalid password"]}
             />
         </>
