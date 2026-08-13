@@ -35,7 +35,7 @@ const WarningNotification : FC<Props> = ({content, enableAnimation = true, iconS
 
     return (
         <section className="flex items-center justify-start">
-            <p ref={boxRef} className={`bg-yellow-500 border-2 border-yellow-800 m-2 p-1 font-bold text-yellow-950 rounded-md flex items-center gap-x-3 ${style}`}>
+            <p ref={boxRef} className={`bg-yellow-500 border-3 border-yellow-800 m-2 p-1 font-bold text-yellow-950 rounded-md flex items-center gap-x-3 ${style}`}>
                 <FontAwesomeIcon icon={faExclamationCircle} className={`text-2xl ${iconStyle}`}/> {content}
             </p>
         </section>

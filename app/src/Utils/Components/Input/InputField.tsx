@@ -35,6 +35,7 @@ const InputField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = ""
                     </label>
                 }
                 <input id={id} type={type == "password" ? isShowingPassword ? "text" : "password" : type}
+                autoComplete="off" autoCapitalize="off" spellCheck={false}
                 className={`flex-[1_1_auto] focus:outline-0 min-w-0 dark:text-white`} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}/>
                 {
                     type == "password" && <FontAwesomeIcon className={`shrink-0 dark:text-white cursor-pointer ${iconStyle}`} icon={isShowingPassword ? faEyeSlash : faEye}

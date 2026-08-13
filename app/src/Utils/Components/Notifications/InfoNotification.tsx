@@ -35,7 +35,7 @@ const InfoNotification : FC<Props> = ({content, enableAnimation = true, iconStyl
 
     return (
         <section className="flex items-center justify-start">
-            <p ref={boxRef} className={`bg-blue-500 border-2 border-blue-800 m-2 p-1 font-bold text-blue-950 rounded-md flex items-center gap-x-3 ${style}`}>
+            <p ref={boxRef} className={`bg-blue-500 border-3 border-blue-800 m-2 p-1 font-bold text-blue-950 rounded-md flex items-center gap-x-3 ${style}`}>
                 <FontAwesomeIcon icon={faInfoCircle} className={`text-2xl ${iconStyle}`}/> {content}
             </p>
         </section>

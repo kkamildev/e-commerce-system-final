@@ -1,5 +1,12 @@
 @import "tailwindcss";
 
+input,
+select,
+textarea,
+button {
+  color-scheme: light !important;
+}
+
 
 body {
     @apply dark:bg-zinc-900
