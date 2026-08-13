@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import ErrorNotification from "../Notifications/ErrorNotification";
+import InputError from "../Notifications/InputError";
 
 type Props = {
     title?:string,
@@ -10,10 +10,11 @@ type Props = {
     id:string,
     value:string,
     onChange:(value : string) => void;
-    errors?:string[]
+    errors?:string[],
+    maxCharacters?:number
 }
 
-const AreaTextField : FC<Props> = ({id, title, subtitle, style = "", placeholder = "", areaStyle, value, onChange, errors = []}) => {
+const AreaTextField : FC<Props> = ({id, title, subtitle, style = "", placeholder = "", areaStyle, value, onChange, errors = [], maxCharacters = 0}) => {
     return (
         <section className="m-2 min-w-0">
             {title && <label htmlFor={id}><p className="font-bold text-xl mt-2 dark:text-white">{title}</p></label>}
@@ -23,9 +24,15 @@ const AreaTextField : FC<Props> = ({id, title, subtitle, style = "", placeholder
                 autoComplete="off" autoCapitalize="off" spellCheck={false}
                 className={`flex-[1_1_auto] focus:outline-0 min-w-0 dark:text-white ${areaStyle}`} placeholder={placeholder} value={value} onChange={(e) => onChange(e.target.value)}/>
             </section>
+            <section className="flex justify-end mr-4">
+                {
+                    maxCharacters != 0 &&
+                    <p className={` ${value.length > maxCharacters ? "text-red-700" : "dark:text-white text-neutral-700"} text-sm`}>{value.length} / {maxCharacters}</p>
+                }
+            </section>
             {
                 errors.length != 0 &&
-                <ErrorNotification content={errors[0]}/>
+                <InputError content={errors[0]}/>
             }
         </section>
     )

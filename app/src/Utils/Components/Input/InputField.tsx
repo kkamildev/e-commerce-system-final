@@ -2,7 +2,7 @@ import { useState, type FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import ErrorNotification from "../Notifications/ErrorNotification";
+import InputError from "../Notifications/InputError";
 
 
 type Props = {
@@ -16,10 +16,11 @@ type Props = {
     id:string,
     value:string,
     onChange:(value : string) => void;
-    errors?:string[]
+    errors?:string[],
+    maxCharacters?:number
 }
 
-const InputField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "", type = "text", placeholder = "", icon, value, onChange, errors = []}) => {
+const InputField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "", type = "text", placeholder = "", icon, value, onChange, errors = [], maxCharacters = 0}) => {
 
     const [isShowingPassword, setIsShowingPassword] = useState<boolean>(false);
 
@@ -43,9 +44,15 @@ const InputField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = ""
                     />
                 }
             </section>
+            <section className="flex justify-end mr-4">
+                {
+                    maxCharacters != 0 &&
+                    <p className={` ${value.length > maxCharacters ? "text-red-700" : "dark:text-white text-neutral-700"} text-sm`}>{value.length} / {maxCharacters}</p>
+                }
+            </section>
             {
                 errors.length != 0 &&
-                <ErrorNotification content={errors[0]}/>
+                <InputError content={errors[0]}/>
             }
         </section>
     )

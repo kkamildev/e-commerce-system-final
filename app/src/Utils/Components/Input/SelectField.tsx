@@ -1,9 +1,9 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useRef, useState, type FC } from "react"
-import ErrorNotification from "../Notifications/ErrorNotification";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { animate, JSAnimation } from "animejs";
+import InputError from "../Notifications/InputError";
 
 type Props = {
     title?:string,
@@ -116,7 +116,7 @@ const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "
             </section>
             {
                 errors.length != 0 &&
-                <ErrorNotification content={errors[0]}/>
+                <InputError content={errors[0]}/>
             }
         </section>
     )

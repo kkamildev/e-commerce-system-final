@@ -1,5 +1,5 @@
 import { type FC } from "react"
-import ErrorNotification from "../Notifications/ErrorNotification";
+import InputError from "../Notifications/InputError";
 
 
 type Props = {
@@ -42,7 +42,7 @@ const Switch : FC<Props> = ({id, title, subtitle, value, onChange, errors = [], 
             </section>
             {
                 errors.length != 0 &&
-                <ErrorNotification content={errors[0]}/>
+                <InputError content={errors[0]}/>
             }
         </section>
     );

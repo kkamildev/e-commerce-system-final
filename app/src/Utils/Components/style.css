@@ -1,0 +1,17 @@
+
+@import "tailwindcss";
+
+/*
+    UTILS STYLES
+*/
+
+body {
+    @apply dark:bg-zinc-900
+}
+
+.btn {
+    @apply px-4 py-2 m-2 text-xl font-bold text-white rounded-md transition-all duration-150 ease-in-out cursor-pointer
+}
+.btn-show {
+    @apply hover:scale-105
+}
