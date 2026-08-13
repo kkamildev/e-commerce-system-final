@@ -4,6 +4,11 @@ import InputField from "./Utils/Components/Input/InputField";
 import AreaTextField from "./Utils/Components/Input/AreaTextField";
 import Switch from "./Utils/Components/Input/Switch";
 import Form from "./Utils/Components/Input/Form";
+import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
+import PopUpLayout from "./Utils/Components/Popups/PopUpLayout";
+import PopUpButton from "./Utils/Components/Popups/PopUpButton";
+import RightSlider from "./Utils/Components/Popups/RightSlider";
+import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
 
 type Props = {
 
@@ -19,7 +24,7 @@ const App : FC<Props> = ({}) => {
 
     return (
         <>
-            <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-blue-700/50 items-start rounded-xl h-screen"
+            <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-blue-700/50 items-start rounded-xl min-h-screen"
                 onSubmit={() => alert("Hello world")}
             >
                 <SelectField
@@ -41,6 +46,7 @@ const App : FC<Props> = ({}) => {
                     ]}
                     errors={["Invalid password"]}
                 />
+                <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
                 <InputField
                     title="Hello world"
                     subtitle="(password)"
@@ -74,7 +80,23 @@ const App : FC<Props> = ({}) => {
                     buttonOnStyle="bg-sky-600!"
                 />
                 <button type="submit" className="btn bg-blue-900 hover:bg-blue-800 btn-show">Submit Form</button>
+                <InputSuccess content="Everything is okay"/>
             </Form>
+            <PopUpButton style="bg-blue-800 hover:bg-blue-700" popUp={
+                <PopUpLayout style="top-50! left-[50vw]">
+                    <section className="bg-neutral-900 p-5 rounded-xl border-3 border-zinc-600 text-white w-100 h-25">
+                        <h1 className="text-2xl">Hello world</h1>
+                        <p className="text-zinc-700">Description of hello world</p>
+                    </section>
+                </PopUpLayout>
+            } onClick={() => {}}>
+                Click me
+            </PopUpButton>
+            <RightSlider style="w-[300px] h-full dark:bg-zinc-950 bg-zinc-200" button={<>Hello world</>}>
+                <section className="w-full h-full m-2">
+                    <h2 className="dark:text-white text-black text-2xl">Subscribe me</h2>
+                </section>
+            </RightSlider>
         </>
     )
 }
