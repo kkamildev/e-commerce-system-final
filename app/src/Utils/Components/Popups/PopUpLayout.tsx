@@ -16,7 +16,7 @@ const PopUpLayout : FC<Props> = ({style = "", children}) => {
         const animation = animate(boxRef.current, {
             translateY: ["-20", "0"],
             opacity:["0", "1"],
-            duration: 700,
+            duration: 400,
             ease: 'inOutQuad',
             loop: false,
             alternate: true

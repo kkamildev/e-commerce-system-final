@@ -9,6 +9,7 @@ import PopUpLayout from "./Utils/Components/Popups/PopUpLayout";
 import PopUpButton from "./Utils/Components/Popups/PopUpButton";
 import RightSlider from "./Utils/Components/Popups/RightSlider";
 import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
+import FileField from "./Utils/Components/Input/FileField";
 
 type Props = {
 
@@ -78,6 +79,15 @@ const App : FC<Props> = ({}) => {
                     id="input4"
                     onChange={(value) => setSwitchValue(value)}
                     buttonOnStyle="bg-sky-600!"
+                />
+                <FileField
+                    id="files"
+                    onChange={() => {}}
+                    style=""
+                    filesCount={3}
+                    maxSizeMb={10}
+                    minSizeMb={0.1}
+                    mediaTypes="image/*"
                 />
                 <button type="submit" className="btn bg-blue-900 hover:bg-blue-800 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
