@@ -33,7 +33,7 @@ const InputError : FC<Props> = ({content, enableAnimation = true, iconStyle = ""
         return () => {
             animation.revert();
         };
-    }, []);
+    }, [content]);
 
     return (
         <section className="flex items-center justify-start">

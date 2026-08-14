@@ -1,5 +1,7 @@
 import { useRef, useState, type ChangeEvent, type FC } from "react";
 import InputError from "../Notifications/InputError";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {
     title?:string,
@@ -8,7 +10,6 @@ type Props = {
     inputStyle?:string,
     id:string,
     onChange:(value : FileList) => void;
-    errors?:string[],
     maxCharacters?:number,
     mediaTypes?:string,
     minSizeMb?:number,
@@ -16,11 +17,12 @@ type Props = {
     filesCount?:number
 }
 
-const FileField : FC<Props> = ({id, title, subtitle, style = "", inputStyle = "", onChange, errors = [], mediaTypes = "", filesCount = 1, maxSizeMb = null, minSizeMb = null}) => {
+const FileField : FC<Props> = ({id, title, subtitle, style = "", inputStyle = "", onChange, mediaTypes = "", filesCount = 1, maxSizeMb = null, minSizeMb = null}) => {
 
     const inputRef = useRef(null);
 
     const [preview, setPreview] = useState<string[]>([]);
+    const [errors, setErrors] = useState<string[]>([]);
 
 
     const handleFile = (e: ChangeEvent<HTMLInputElement, HTMLInputElement>) => {
@@ -48,34 +50,40 @@ const FileField : FC<Props> = ({id, title, subtitle, style = "", inputStyle = ""
                 });
 
                 if (!isAllowed) {
-                    setPreview([]);
-                    destroyFile();
-                    inputRef.current.value = "";
+                    destroyFile("Not allowed");
                     return;
                 }
             }
             if(maxSizeMb != null) {
                 if(file.size > maxSizeMb * 1024 * 1024) {
-                    setPreview([]);
-                    destroyFile();
-                    inputRef.current.value = "";
+                    destroyFile("Too big");
                     return;
                 }
             }
             if(minSizeMb != null) {
                 if(file.size < minSizeMb * 1024 * 1024) {
-                    destroyFile();
-                    inputRef.current.value = "";
+                    destroyFile("Too small");
                     return;
                 }
             }
             setPreview((prev) => [...prev, file.name]);
         }
+        setErrors([]);
     }
 
-    const destroyFile = () => {
+    const destroyFile = (error : string) => {
+        const scrollY = window.scrollY;
         setPreview([]);
         onChange(null);
+        inputRef.current.value = "";
+        setTimeout(() => {
+            window.scrollTo(0, scrollY);
+        }, 0);
+        if(error == null) {
+            setErrors([]);
+        } else {
+            setErrors([error]);
+        }
     }
 
     return(
@@ -87,6 +95,9 @@ const FileField : FC<Props> = ({id, title, subtitle, style = "", inputStyle = ""
                     handleFile(e),
                     onChange(e.target.files)
                 }} accept={mediaTypes} multiple={filesCount > 1}/>
+                {
+                    preview.length == 0 && <FontAwesomeIcon icon={faFile} className="dark:text-white text-black text-2xl mt-3"/>
+                }
                 <section className="flex flex-col items-start gap-y-2">
                     {preview.length != 0 && preview.map((value) => <p key={value} className="dark:text-white text-black text-left">{value}</p>)}
                 </section>
@@ -98,7 +109,7 @@ const FileField : FC<Props> = ({id, title, subtitle, style = "", inputStyle = ""
                         {maxSizeMb && <p className="text-zinc-600">Max size: {maxSizeMb}Mb</p>}
                         {minSizeMb && <p className="text-zinc-600">Min size: {minSizeMb}Mb</p>}
                     </> :
-                    <button id={id} type="button" className={`${inputStyle} btn text-lg! text-red-700!`} onClick={destroyFile}>Cancel upload</button>
+                    <button id={id} type="button" className={`${inputStyle} btn text-lg! text-red-700!`} onClick={() => destroyFile(null)}>Cancel upload</button>
                 }
             </section>
             {
