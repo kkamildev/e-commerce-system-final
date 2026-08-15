@@ -9,12 +9,12 @@ export type ValidationObject = {
 }
 
 const useForm = (validators : ValidationObject[]) => {
-    const [data, setData] = useState<{id:string, value:string}[]>([]);
+    const [data, setData] = useState<{id:string, value:string, key?:string}[]>([]);
     const [errors, setErrors] = useState<{id:string, error:string}[]>([]);
 
     useEffect(() => {
         setData(validators.map((obj) => ({id:obj.fieldId, value:null})))
-    }, [validators]);
+    }, []);
     useEffect(() => {
         const newErrors: { id: string; error: string }[] = [];
 
@@ -34,18 +34,44 @@ const useForm = (validators : ValidationObject[]) => {
         setErrors(newErrors);
     }, [data, validators]);
 
+    const update = useCallback((id : string, newValue : string, key? : string) => {
+        setData((prev) => prev.map((obj) => {
+            if(obj.id == id) {
+                return ({id, value:newValue, key})
+            }
+            return obj;
+        }))
+    }, []);
+    const getErrors = useCallback((id : string) => {
+        return errors.filter((obj) => obj.id == id).map((obj) => obj.error);
+    }, [errors]);
+
+    const getData = useCallback((id : string) => {
+        return data.find((obj) => obj.id == id);
+    }, [data]);
+
     const checkComplete = useCallback(() => {
         if (errors.length > 0) return false;
-        return data.every(obj => {
+        const completed = data.every(obj => {
             const validator = validators.find(v => v.fieldId === obj.id);
             if (!validator) return true;
             if (!validator.required) return true;
             return !!obj.value && obj.value.trim() !== "";
         });
+        if(!completed) {
+            setData((prev) => prev.map((obj) => ({id:obj.id, value:obj.value == null ? "" : obj.value})))
+        }
+        return completed;
     }, [errors, data, validators]);
 
 
-    return [data, setData, errors, checkComplete]
+    return [getData, update, getErrors, setErrors, checkComplete] as [
+        (id: string) => {id : string, value:string, key?:string} | undefined,
+        (id: string, newValue: string, key? : string) => void,
+        (id: string) => string[] | undefined,
+        React.Dispatch<React.SetStateAction<{ id: string; error: string }[]>>,
+        () => boolean
+    ];
 }
 
-export default useForm;
+export {useForm};

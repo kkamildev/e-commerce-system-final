@@ -2,6 +2,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { animate, JSAnimation } from "animejs";
 import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
+import { useKeyboard } from "../../hooks/useKeyboard";
 
 type Props = {
     children:ReactNode,
@@ -13,6 +14,13 @@ type Props = {
 const RightSlider : FC<Props> = ({children, button, buttonStyle = "", style = ""}) => {
 
     const [display, setDisplay] = useState<boolean>(false);
+
+    useKeyboard(
+        {
+            Escape:() => setDisplay(false)
+        },
+        true
+    )
     
     const sliderRef = useRef(null);
     
