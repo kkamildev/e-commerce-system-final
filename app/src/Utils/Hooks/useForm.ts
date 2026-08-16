@@ -5,7 +5,8 @@ export type ValidationObject = {
     fieldId:string,
     errorMessages:string[],
     validations:RegExp[],
-    required:boolean
+    required:boolean,
+    keyCheck?:boolean
 }
 
 const useForm = (validators : ValidationObject[]) => {
@@ -24,8 +25,14 @@ const useForm = (validators : ValidationObject[]) => {
                 if (!validator) return;
     
                 validator.validations.forEach((regExp, index) => {
-                    if (!regExp.test(obj.value)) {
-                        newErrors.push({ id: obj.id, error: validator.errorMessages[index] });
+                    if(validator.keyCheck) {
+                        if (!regExp.test(obj.key || "")) {
+                            newErrors.push({ id: obj.id, error: validator.errorMessages[index] });
+                        }
+                    } else {
+                        if (!regExp.test(obj.value)) {
+                            newErrors.push({ id: obj.id, error: validator.errorMessages[index] });
+                        }
                     }
                 });
             }
@@ -56,7 +63,11 @@ const useForm = (validators : ValidationObject[]) => {
             const validator = validators.find(v => v.fieldId === obj.id);
             if (!validator) return true;
             if (!validator.required) return true;
-            return !!obj.value && obj.value.trim() !== "";
+            if(validator.keyCheck) {
+                return !!obj.key && obj.key.trim() !== "";
+            } else {
+                return !!obj.value && obj.value.trim() !== "";
+            }
         });
         if(!completed) {
             setData((prev) => prev.map((obj) => ({id:obj.id, value:obj.value == null ? "" : obj.value})))

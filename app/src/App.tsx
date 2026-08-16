@@ -3,7 +3,7 @@ import SelectField from "./Utils/Components/Input/SelectField";
 import Form from "./Utils/Components/Input/Form";
 import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
 import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
-import { useForm } from "./Utils/Hooks/useForm";
+import { useForm, type ValidationObject } from "./Utils/Hooks/useForm";
 import GlobalErrorNotification from "./Utils/Components/Notifications/GlobalErrorNotification";
 import { useRequest } from "./Utils/Hooks/useRequest";
 
@@ -16,15 +16,16 @@ const App : FC<Props> = ({}) => {
     const validators = useMemo(() => [
         {
             fieldId:"input",
+            keyCheck:true,
             required:true,
             validations:[
                 /^.{1,}$/
             ],
             errorMessages:[
                 "This field is required"
-            ]
+            ],
         }
-    ], []);
+    ] as ValidationObject[], []);
 
     const [getData, update, getErrors,, checkComplete] = useForm(validators);
     const {send, data, error, loading} = useRequest();
