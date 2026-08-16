@@ -2,7 +2,7 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { animate, JSAnimation } from "animejs";
 import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
-import { useKeyboard } from "../../hooks/useKeyboard";
+import { useKeyboard } from "../../Hooks/useKeyboard";
 
 type Props = {
     children:ReactNode,

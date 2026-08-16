@@ -3,7 +3,9 @@ import SelectField from "./Utils/Components/Input/SelectField";
 import Form from "./Utils/Components/Input/Form";
 import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
 import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
-import { useForm } from "./Utils/hooks/useForm";
+import { useForm } from "./Utils/Hooks/useForm";
+import GlobalErrorNotification from "./Utils/Components/Notifications/GlobalErrorNotification";
+import { useRequest } from "./Utils/Hooks/useRequest";
 
 type Props = {
 
@@ -25,13 +27,16 @@ const App : FC<Props> = ({}) => {
     ], []);
 
     const [getData, update, getErrors,, checkComplete] = useForm(validators);
+    const {send, data, error, loading} = useRequest();
 
     return (
         <>
+            <GlobalErrorNotification/>
             <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-blue-700/50 items-start rounded-xl min-h-screen"
-                onSubmit={() => {
+                onSubmit={async () => {
                     if(checkComplete()) {
-                        alert(getData("input")?.key)
+                        const data = await send("GET", "localhost:3000", null, null);
+                        console.log(data);
                     }
                 }}
             >
