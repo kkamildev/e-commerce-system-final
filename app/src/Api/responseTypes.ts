@@ -74,7 +74,7 @@ export interface OpinionModel {
     editedAt?:Date
 }
 
-export interface ChatMessage {
+export interface ChatMessageModel {
     id?:string,
     account:AccountModel,
     user:UserModel,

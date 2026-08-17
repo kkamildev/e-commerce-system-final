@@ -48,6 +48,7 @@ const App : FC<Props> = ({}) => {
                     iconStyle='text-green-500!'
                     placeholder='Type something...'
                     id='input'
+                    menuActive
                     value={getData("input")?.value ?? ""}
                     onChange={(value, key) => update("input", value, key)}
                     options={[
