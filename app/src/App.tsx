@@ -36,7 +36,7 @@ const App : FC<Props> = ({}) => {
             <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-blue-700/50 items-start rounded-xl min-h-screen"
                 onSubmit={async () => {
                     if(checkComplete()) {
-                        const data = await send("GET", "localhost:3000", null, null);
+                        const data = await send<{id:string}>("GET", "localhost:3000", null, null);
                         console.log(data);
                     }
                 }}
