@@ -5,6 +5,12 @@ import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
 import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
 import { useForm, type ValidationObject } from "./Utils/Hooks/useForm";
 import GlobalErrorNotification from "./Utils/Components/Notifications/GlobalErrorNotification";
+import Dropdown from "./Utils/Components/Input/Dropdown";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
+import SpinLoader from "./Utils/Components/Loaders/SpinLoader";
+import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { useLoadingStore } from "./Utils/Stores/useLoadingStore";
 
 type Props = {
 
@@ -27,6 +33,8 @@ const App : FC<Props> = ({}) => {
     ] as ValidationObject[], []);
 
     const [getData, update, getErrors,, checkComplete] = useForm(validators);
+    const addLoader = useLoadingStore((store) => store.addLoader)
+    const deleteLoader = useLoadingStore((store) => store.deleteLoader)
 
     return (
         <>
@@ -37,29 +45,21 @@ const App : FC<Props> = ({}) => {
                     }
                 }}
             >
-                <SelectField
-                    title="Hello world"
-                    subtitle="(password)"
-                    style="max-w-[300px]"
+                <Dropdown
+                    style="max-w-[300px] font-bold border-none!"
+                    downStyle="dark:bg-zinc-900"
                     iconStyle='text-green-500!'
-                    placeholder='Type something...'
-                    id='input'
-                    menuActive
-                    value={getData("input")?.value ?? ""}
-                    onChange={(value, key) => update("input", value, key)}
                     options={[
-                        {key:"1", value:"Math"},
-                        {key:"2", value:"Biology"},
-                        {key:"3", value:"History"},
-                        {key:"4", value:"English"},
-                        {key:"5", value:"German"},
-                        {key:"6", value:"P.E"}
+                        {value:"Loading", onClick:() => addLoader("1")},
+                        {value:"Not loading ", onClick:() => deleteLoader("1")},
                     ]}
-                    errors={getErrors("input")}
-                />
+                >
+                    <p className="dark:text-white text-xl"><FontAwesomeIcon icon={faUserCircle}/> Hello world</p>
+                </Dropdown>
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
                 <button type="submit" className="btn bg-blue-900 hover:bg-blue-800 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
+                <SpinLoader loaderId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faCircleNotch}/></SpinLoader>
             </Form>
         </>
     )

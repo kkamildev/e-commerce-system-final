@@ -10,6 +10,7 @@ type Props = {
     subtitle?:string,
     style?:string,
     iconStyle?:string,
+    downStyle?:string
     menuActive?:boolean
     placeholder?:string,
     id:string,
@@ -24,7 +25,7 @@ export type SelectFieldOption = {
     value?:string
 }
 
-const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "", placeholder = "", value, onChange, errors = [], options, menuActive = false}) => {
+const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "", downStyle = "", placeholder = "", value, onChange, errors = [], options, menuActive = false}) => {
 
     const [isOptionsShowed, setIsOptionsShowed] = useState<boolean>(false);
 
@@ -37,7 +38,7 @@ const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "
         if(isOptionsShowed) {
             animation = animate(buttonRef.current, {
                 rotateZ:["0deg", "180deg"],
-                duration: 400,
+                duration: 200,
                 ease: 'inOutQuad',
                 loop: false,
                 alternate: true
@@ -45,7 +46,7 @@ const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "
         } else {
             animation = animate(buttonRef.current, {
                 rotateZ:["180deg", "0deg"],
-                duration: 400,
+                duration: 200,
                 ease: 'inOutQuad',
                 loop: false,
                 alternate: true
@@ -122,7 +123,7 @@ const SelectField : FC<Props> = ({id, title, subtitle, style = "", iconStyle = "
                     <section className="absolute top-full max-h-50 w-full dark:bg-zinc-950 bg-zinc-200 z-10 right-px rounded-b-lg overflow-y-auto">
                         {
                             filteredOptions().map((option) => <p key={option.key} onMouseDown={() => {onChange(option.value == null ? option.key : option.value, option.key); setIsOptionsShowed(false)}}
-                            className="dark:text-white text-zinc-600 p-2 font-bold dark:hover:bg-zinc-800 hover:bg-neutral-300 cursor-pointer transition-colors duration-100 ease-in-out">
+                            className={`${downStyle} dark:text-white text-zinc-600 p-2 font-bold dark:hover:bg-zinc-800 hover:bg-neutral-300 cursor-pointer transition-colors duration-100 ease-in-out`}>
                                 {option.value == null ? option.key : option.value}</p>)
                         }
                     </section>

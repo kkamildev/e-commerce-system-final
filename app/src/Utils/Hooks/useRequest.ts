@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import axios, { type AxiosRequestConfig } from "axios";
 import { useErrorStore } from "../Stores/useErrorStore";
+import { useLoadingStore } from "../Stores/useLoadingStore";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -14,19 +15,23 @@ export type SendRequest = <R = any>(
   method: HttpMethod,
   url: string,
   config?: AxiosRequestConfig,
-  body?: any
+  body?: any,
+  loaderId?:string
 ) => Promise<R | null>;
 
 export function useRequest<T = any>() {
-  const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [data, setData] = useState<T | null>(null);
 
   const setGlobalError = useErrorStore((state) => state.setError);
+  const addLoader = useLoadingStore((state) => state.addLoader);
+  const deleteLoader = useLoadingStore((state) => state.deleteLoader);
 
   const send: SendRequest = useCallback(
-    async (method, url, config, body) => {
-      setLoading(true);
+    async (method, url, config, body, loaderId) => {
+      if(loaderId) {
+        addLoader(loaderId);
+      }
       setError(null);
 
       try {
@@ -61,11 +66,11 @@ export function useRequest<T = any>() {
         return null;
 
       } finally {
-        setLoading(false);
+        deleteLoader(loaderId);
       }
     },
     []
   );
 
-  return { loading, error, data, send };
+  return {error, data, send };
 }
