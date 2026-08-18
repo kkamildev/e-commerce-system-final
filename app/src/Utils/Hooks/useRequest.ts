@@ -54,9 +54,10 @@ export function useRequest<T = any>() {
 
         if (message === "SERVER_ERROR" || message === "UNKNOWN_ERROR") {
           setGlobalError(errorBody?.title || "Unexpected error", errorBody?.message, errorBody?.type);
+        } else {
+          setError(message);
         }
 
-        setError(message);
         return null;
 
       } finally {

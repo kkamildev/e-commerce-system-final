@@ -1,6 +1,6 @@
 import { getUsers } from "../Mocks/users.mock";
 import type { UserModel } from "./responseTypes";
-import { mockUserAuth } from "../Mocks/auth.mock";
+import { mockUserAuth } from "../Mocks/authUser.mock";
 import { useDelay } from "../Utils/Hooks/useDelay";
 
 
@@ -18,14 +18,29 @@ export const useUserApi = () => {
         insertOne: async (user : UserModel) : Promise<UserModel> => {
             return delay((resolve) => {
                 getUsers().push(user);
+                user.id = Math.random() * 1000000;
                 resolve(user)
             })
         },
         registerOne:async (user : UserModel) : Promise<UserModel> => {
             return delay((resolve) => {
                 getUsers().push(user);
+                user.id = Math.random() * 1000000;
                 resolve(user);
-                mockUserAuth.login(user.email, user.password)
+                mockUserAuth.login(user.id, user.username)
+            })
+        },
+        uploadAvatar:async (file : File) : Promise<{url:string}> => {
+            return delay((resolve) => {
+                const tempUrl = URL.createObjectURL(file);
+                const id = mockUserAuth.getAccessToken().id;
+                const accounts = getUsers();
+                const index = accounts.findIndex(obj => obj.id === id);
+    
+                if (index === -1) return resolve(null);
+    
+                accounts[index].avatarHash = tempUrl;
+                resolve({url:tempUrl})
             })
         },
         login:async (email : string, password : string) => {
@@ -34,7 +49,7 @@ export const useUserApi = () => {
                 const index = users.findIndex(obj => obj.email === email && obj.password === password);
     
                 if (index === -1) return resolve(null);
-                mockUserAuth.login(users[index].email, users[index].password)
+                mockUserAuth.login(users[index].id, users[index].username)
                 resolve(mockUserAuth.getAccessToken())
             })
         },
@@ -70,17 +85,16 @@ export const useUserApi = () => {
             })
         },
         deleteOne: async (id:number) : Promise<UserModel> => {
-            return 
-            return new Promise(resolve => {
+            return delay((resolve) => {
                 setTimeout(() => {
                     const users = getUsers();
                     const index = users.findIndex(u => u.id === id);
-
+    
                     if (index === -1) return resolve(null);
-
+    
                     const deleted = users[index];
                     users.splice(index, 1);
-
+    
                     resolve(deleted);
                 }, 300);
             })
