@@ -4,7 +4,7 @@ let users : UserModel[] = [
     {
         id:1,
         username:"Smith",
-        email:"smith_124@gmail.com",
+        email:"smith@gmail.com",
         role:"ADMIN",
         avatarHash:"knjiu",
         password:"1q2w3e4r5t6y"
