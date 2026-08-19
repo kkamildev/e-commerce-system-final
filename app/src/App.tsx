@@ -1,5 +1,4 @@
 import { useMemo, type FC } from "react";
-import SelectField from "./Utils/Components/Input/SelectField";
 import Form from "./Utils/Components/Input/Form";
 import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
 import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
@@ -9,9 +8,10 @@ import Dropdown from "./Utils/Components/Input/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import SpinLoader from "./Utils/Components/Loaders/SpinLoader";
-import { faCircleNotch, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
+import {faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useLoadingStore } from "./Utils/Stores/useLoadingStore";
 import { useGlobalErrorStore } from "./Utils/Stores/useGlobalErrorStore";
+import RadioGroup from "./Utils/Components/Input/RadioGroup";
 
 type Props = {
 
@@ -48,6 +48,12 @@ const App : FC<Props> = ({}) => {
                     }
                 }}
             >
+                <RadioGroup
+                    buttons={[
+                        {title:"Filter", value:"something1"},
+                        {title:"Range", value:"something2"}
+                    ]}
+                />
                 <Dropdown
                     style="max-w-[300px] font-bold border-none!"
                     downStyle="dark:bg-zinc-900"
