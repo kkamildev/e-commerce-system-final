@@ -1,33 +1,28 @@
 
 
 import {create} from "zustand"
+import type { ErrorBody } from "../Hooks/useRequest"
 
 type ErrorState = {
-    errorAppeared:boolean,
-    errorTitle:string,
-    errorMessage?:string,
-    errorType?:string,
-    setError:(errorTitle : string, errorMessage : string, errorType : string) => void,
-    dismissError:() => void
+    errors: {id:string, body: ErrorBody}[]
+    addError:(id : string, body : ErrorBody) => void,
+    deleteError:(id : string) => void
 }
 
 const useErrorStore = create<ErrorState>((set) => ({
-    errorAppeared:false,
-    errorTitle:null,
-    errorMessage:null,
-    errorType:null,
-    setError:(errorTitle, errorMessage, errorType) => set(() => ({
-        errorAppeared:true,
-        errorTitle:errorTitle,
-        errorMessage,
-        errorType,
-    })),
-    dismissError:() => set(() => ({
-        errorAppeared:false,
-        errorMessage:null,
-        errorTitle:null,
-        errorType:null
-    }))
+    errors:[],
+    addError:(id : string, body : ErrorBody) => set((store) => {
+        if(!store.errors.some((obj) => obj.id === id)){
+            return {errors:[...store.errors, {id, body}]}
+        }
+        return store;
+    }),
+    deleteError:(id : string) => set((store) => {
+        if(store.errors.some((obj) => obj.id === id)){
+            return {errors:store.errors.filter((obj) => obj.id !== id)}
+        }
+        return store;
+    })
 }))
 
 export {useErrorStore}

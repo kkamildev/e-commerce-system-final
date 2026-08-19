@@ -9,8 +9,9 @@ import Dropdown from "./Utils/Components/Input/Dropdown";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import SpinLoader from "./Utils/Components/Loaders/SpinLoader";
-import { faCircleNotch } from "@fortawesome/free-solid-svg-icons";
+import { faCircleNotch, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
 import { useLoadingStore } from "./Utils/Stores/useLoadingStore";
+import { useGlobalErrorStore } from "./Utils/Stores/useGlobalErrorStore";
 
 type Props = {
 
@@ -36,6 +37,8 @@ const App : FC<Props> = ({}) => {
     const addLoader = useLoadingStore((store) => store.addLoader)
     const deleteLoader = useLoadingStore((store) => store.deleteLoader)
 
+    const setGlobalError = useGlobalErrorStore((state) => state.setError);
+
     return (
         <>
             <GlobalErrorNotification/>
@@ -50,8 +53,9 @@ const App : FC<Props> = ({}) => {
                     downStyle="dark:bg-zinc-900"
                     iconStyle='text-green-500!'
                     options={[
-                        {value:"Loading", onClick:() => addLoader("1")},
+                        {value:"Loading", icon:faUser, onClick:() => addLoader("1")},
                         {value:"Not loading ", onClick:() => deleteLoader("1")},
+                        {value:"Check", onClick:() => setGlobalError("SOmething went wrongdwd wdadwd addawdaddwda", "", "", false)}
                     ]}
                 >
                     <p className="dark:text-white text-xl"><FontAwesomeIcon icon={faUserCircle}/> Hello world</p>
@@ -59,7 +63,7 @@ const App : FC<Props> = ({}) => {
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
                 <button type="submit" className="btn bg-blue-900 hover:bg-blue-800 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
-                <SpinLoader loaderId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faCircleNotch}/></SpinLoader>
+                <SpinLoader reqId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faSpinner}/></SpinLoader>
             </Form>
         </>
     )

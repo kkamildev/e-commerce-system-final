@@ -2,7 +2,7 @@
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {useEffect, useRef, useState, type FC, type ReactNode } from "react"
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
+import { faChevronDown, type IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { animate, JSAnimation } from "animejs";
 
 type Props = {
@@ -15,7 +15,8 @@ type Props = {
 
 export type SelectFieldOption = {
     value:string
-    onClick: () => void;
+    onClick: () => void,
+    icon?:IconDefinition
 }
 
 const Dropdown : FC<Props> = ({children, style = "", iconStyle = "", downStyle = "", options}) => {
@@ -95,7 +96,7 @@ const Dropdown : FC<Props> = ({children, style = "", iconStyle = "", downStyle =
                         {
                             options.map((option, index) => <p key={index} onMouseDown={() => {option.onClick(); setIsOptionsShowed(false)}}
                             className={` ${downStyle} dark:text-white text-zinc-600 p-2 font-bold dark:hover:bg-zinc-800 hover:bg-neutral-300 cursor-pointer transition-colors duration-100 ease-in-out`}>
-                                {option.value}</p>)
+                                {option.icon && <FontAwesomeIcon icon={option.icon}/>} {option.value}</p>)
                         }
                     </section>
                 }

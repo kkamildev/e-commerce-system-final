@@ -1,7 +1,8 @@
-import { useState, useCallback } from "react";
+import { useCallback } from "react";
 import axios, { type AxiosRequestConfig } from "axios";
-import { useErrorStore } from "../Stores/useErrorStore";
+import { useGlobalErrorStore } from "../Stores/useGlobalErrorStore";
 import { useLoadingStore } from "../Stores/useLoadingStore";
+import { useErrorStore } from "../Stores/useErrorStore";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 
@@ -16,23 +17,24 @@ export type SendRequest = <R = any>(
   url: string,
   config?: AxiosRequestConfig,
   body?: any,
-  loaderId?:string
+  reqId?:string
 ) => Promise<R | null>;
 
-export function useRequest<T = any>() {
-  const [error, setError] = useState<string | null>(null);
-  const [data, setData] = useState<T | null>(null);
+export function useRequest() {
 
-  const setGlobalError = useErrorStore((state) => state.setError);
+  const setGlobalError = useGlobalErrorStore((state) => state.setError);
+
   const addLoader = useLoadingStore((state) => state.addLoader);
   const deleteLoader = useLoadingStore((state) => state.deleteLoader);
 
+  const addError = useErrorStore((state) => state.addError);
+  const deleteError = useErrorStore((state) => state.deleteError);
+
   const send: SendRequest = useCallback(
-    async (method, url, config, body, loaderId) => {
-      if(loaderId) {
-        addLoader(loaderId);
+    async (method, url, config, body, reqId) => {
+      if(reqId) {
+        addLoader(reqId);
       }
-      setError(null);
 
       try {
         const methods = {
@@ -43,8 +45,9 @@ export function useRequest<T = any>() {
         };
 
         const res = await methods[method]();
-
-        setData(res.data as T);
+        if(reqId) {
+          deleteError(reqId);
+        }
         return res.data as any;
 
       } catch (err: any) {
@@ -60,17 +63,19 @@ export function useRequest<T = any>() {
         if (message === "SERVER_ERROR" || message === "UNKNOWN_ERROR") {
           setGlobalError(errorBody?.title || "Unexpected error", errorBody?.message, errorBody?.type);
         } else {
-          setError(message);
+          if(reqId) {
+            addError(reqId, errorBody);
+          }
         }
 
         return null;
 
       } finally {
-        deleteLoader(loaderId);
+        deleteLoader(reqId);
       }
     },
     []
   );
 
-  return {error, data, send };
+  return {send };
 }

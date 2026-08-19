@@ -14,11 +14,13 @@ const useLoadingStore = create<LoadingState>((set) => ({
         if(!store.loaders.includes(id)){
             return {loaders:[...store.loaders, id]}
         }
+        return store;
     }),
     deleteLoader:(id : string) => set((store) => {
         if(store.loaders.includes(id)){
             return {loaders:store.loaders.filter((obj) => obj !== id)}
         }
+        return store;
     })
 }))
 
