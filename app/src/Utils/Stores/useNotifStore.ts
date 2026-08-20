@@ -17,11 +17,19 @@ type NotifData = {
 
 const useNotifStore = create<NotifState>((set) => ({
     notifs:[],
-    addNotif: (message, onClick, buttonTitle = "OK") => set((store) => ({notifs:[...store.notifs, {id:store.notifs.length, message, onClick:() => {
-        const id = store.notifs.length;
-        store.deleteNotif(id);
-        onClick();
-    }, buttonTitle}]})),
+    addNotif: (message, onClick, buttonTitle = "OK", timeout = 6000) => set((store) => {
+        const id = Date.now();
+        setTimeout(() => {
+            set((store) => ({
+                notifs: store.notifs.filter((n) => n.id !== id)
+            }));
+        }, timeout);
+
+        return {notifs:[...store.notifs, {id, message, onClick:() => {
+            store.deleteNotif(id);
+            onClick();
+            }, buttonTitle}]}
+    }),
     deleteNotif:(id) => set((store) => ({notifs:store.notifs.filter((obj) => obj.id !== id)})),
     clear:() => set(() => ({notifs:[]}))
 }));

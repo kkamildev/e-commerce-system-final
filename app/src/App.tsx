@@ -13,6 +13,9 @@ import RadioGroup from "./Utils/Components/Input/RadioGroup";
 import FixedButton from "./Utils/Components/Popups/FixedButton";
 import NotifStack from "./Utils/Components/Popups/NotifStack";
 import { useNotifStore } from "./Utils/Stores/useNotifStore";
+import InputField from "./Utils/Components/Input/InputField";
+import CodeBlock from "./Utils/Components/Blocks/CodeBlock";
+import CopyBlock from "./Utils/Components/Blocks/CopyBlock";
 
 type Props = {
 
@@ -26,6 +29,7 @@ const App : FC<Props> = ({}) => {
     const addNotif = useNotifStore((store) => store.addNotif);
 
     const [filterValue, setFilterValue] = useState<string>("something1");
+    const [value, setValue] = useState<string>("");
 
     return (
         <>
@@ -64,6 +68,24 @@ const App : FC<Props> = ({}) => {
                 >
                     <p className="dark:text-white text-xl"><FontAwesomeIcon icon={faUserCircle}/> Hello world</p>
                 </Dropdown>
+                <InputField
+                    icon={faUser}
+                    iconStyle="text-green-700!"
+                    id="input1"
+                    onChange={(value) => setValue(value)}
+                    value={value}
+                    placeholder="Your name..."
+                />
+                <CodeBlock
+                    title="API key"
+                    language=""
+                    style="text-green-600! w-100"
+                    code='jnjfefewfnfn1'
+                />
+                <CopyBlock
+                    dataToCopy="ijhyutihubifilwffwefwfegergegergreege"
+                    style="w-100 max-w-100"
+                />
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
                 <button type="submit" className="btn bg-green-900 hover:bg-green-800">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
