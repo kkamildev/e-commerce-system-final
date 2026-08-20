@@ -95,7 +95,7 @@ const Dropdown : FC<Props> = ({children, style = "", iconStyle = "", downStyle =
                     <section className="absolute top-full max-h-50 w-full dark:bg-zinc-950 bg-zinc-200 z-10 right-px rounded-b-lg overflow-y-auto">
                         {
                             options.map((option, index) => <p key={index} onMouseDown={() => {option.onClick(); setIsOptionsShowed(false)}}
-                            className={` ${downStyle} dark:text-white text-zinc-600 p-2 font-bold dark:hover:bg-zinc-800 hover:bg-neutral-300 cursor-pointer transition-colors duration-100 ease-in-out`}>
+                            className={` ${downStyle} dark:text-white text-zinc-900 p-2 font-bold dark:hover:bg-zinc-800 hover:bg-neutral-300 cursor-pointer transition-colors duration-100 ease-in-out`}>
                                 {option.icon && <FontAwesomeIcon icon={option.icon}/>} {option.value}</p>)
                         }
                     </section>

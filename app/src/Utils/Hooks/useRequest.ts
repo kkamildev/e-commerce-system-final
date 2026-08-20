@@ -62,11 +62,11 @@ export function useRequest() {
 
         if (message === "SERVER_ERROR" || message === "UNKNOWN_ERROR") {
           setGlobalError(errorBody?.title || "Unexpected error", errorBody?.message, errorBody?.type);
-        } else {
-          if(reqId) {
+        } else if(message == "NETWORK") {
+          setGlobalError(errorBody?.title || "Unexpected error", errorBody?.message, errorBody?.type, true);
+        } else if(reqId) {
             addError(reqId, errorBody);
           }
-        }
 
         return null;
 
