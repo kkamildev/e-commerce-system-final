@@ -1,21 +1,14 @@
 import { useState, type FC } from "react";
-import Form from "./Utils/Components/Input/Form";
-import BaseSeparator from "./Utils/Components/Separators/BaseSeparator";
-import InputSuccess from "./Utils/Components/Notifications/InputSuccess";
-import GlobalErrorNotification from "./Utils/Components/Notifications/GlobalErrorNotification";
-import Dropdown from "./Utils/Components/Input/Dropdown";
+import { faPlus, faSpinner, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import {useLoadingStore, useNotifStore} from "./Utils/Stores"
+import {GlobalErrorNotification, InputSuccess} from "./Utils/Components/Notifications"
+import { NotifStack, FixedButton} from "./Utils/Components/Popups";
+import { Form, RadioGroup, Dropdown, InputField } from "./Utils/Components/Input";
+import { CopyBlock, CodeBlock } from "./Utils/Components/Blocks";
+import { BaseSeparator } from "./Utils/Components/Separators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
-import SpinLoader from "./Utils/Components/Loaders/SpinLoader";
-import {faPlus, faSpinner, faUser } from "@fortawesome/free-solid-svg-icons";
-import { useLoadingStore } from "./Utils/Stores/useLoadingStore";
-import RadioGroup from "./Utils/Components/Input/RadioGroup";
-import FixedButton from "./Utils/Components/Popups/FixedButton";
-import NotifStack from "./Utils/Components/Popups/NotifStack";
-import { useNotifStore } from "./Utils/Stores/useNotifStore";
-import InputField from "./Utils/Components/Input/InputField";
-import CodeBlock from "./Utils/Components/Blocks/CodeBlock";
-import CopyBlock from "./Utils/Components/Blocks/CopyBlock";
+import { SpinLoader } from "./Utils/Components/Loaders";
+
 
 type Props = {
 

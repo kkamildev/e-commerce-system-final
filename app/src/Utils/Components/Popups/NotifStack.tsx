@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import Notif from "./Notif";
-import { useNotifStore } from "../../Stores/useNotifStore";
+import { useNotifStore } from "../../Stores";
 
 
 type Props = {

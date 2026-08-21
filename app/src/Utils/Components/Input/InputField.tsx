@@ -2,7 +2,7 @@ import { useState, type FC } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import type { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import InputError from "../Notifications/InputError";
+import { InputError } from "../Notifications";
 
 
 type Props = {

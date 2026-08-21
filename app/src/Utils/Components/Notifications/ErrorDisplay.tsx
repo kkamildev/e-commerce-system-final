@@ -1,5 +1,5 @@
 import type { FC, ReactNode } from "react";
-import { useErrorStore } from "../../Stores/useErrorStore";
+import { useErrorStore } from "../../Stores";
 
 type Props = {
     children:ReactNode,

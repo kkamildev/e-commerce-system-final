@@ -1,5 +1,5 @@
 import { useRef, useState, type ChangeEvent, type FC } from "react";
-import InputError from "../Notifications/InputError";
+import { InputError } from "../Notifications";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 

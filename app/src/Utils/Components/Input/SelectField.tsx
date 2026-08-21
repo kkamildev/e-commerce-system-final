@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useCallback, useEffect, useRef, useState, type FC } from "react"
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { animate, JSAnimation } from "animejs";
-import InputError from "../Notifications/InputError";
+import { InputError } from "../Notifications";
 
 type Props = {
     title?:string,

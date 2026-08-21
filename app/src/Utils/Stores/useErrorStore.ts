@@ -1,7 +1,7 @@
 
 
 import {create} from "zustand"
-import type { ErrorBody } from "../Hooks/useRequest"
+import type { ErrorBody } from "../Hooks"
 
 type ErrorState = {
     errors: {id:string, body: ErrorBody}[]

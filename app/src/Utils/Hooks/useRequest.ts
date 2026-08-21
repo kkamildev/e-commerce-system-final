@@ -1,8 +1,6 @@
 import { useCallback } from "react";
 import axios, { type AxiosRequestConfig } from "axios";
-import { useGlobalErrorStore } from "../Stores/useGlobalErrorStore";
-import { useLoadingStore } from "../Stores/useLoadingStore";
-import { useErrorStore } from "../Stores/useErrorStore";
+import { useErrorStore, useGlobalErrorStore, useLoadingStore} from "../Stores";
 
 export type HttpMethod = "GET" | "POST" | "PUT" | "DELETE";
 

@@ -1,3 +1,4 @@
+
 import type { FC, ReactNode } from "react";
 import { useLoadingStore } from "../../Stores";
 
@@ -6,15 +7,15 @@ type Props = {
     reqId:string
 }
 
-const SpinLoader : FC<Props> = ({children, reqId}) => {
+const BaseLoader : FC<Props> = ({children, reqId}) => {
 
     const loaders = useLoadingStore((store) => store.loaders);
 
     return (
-        loaders.includes(reqId) && <section className="animate-spin flex items-center justify-center">
+        loaders.includes(reqId) && <section>
             {children}
         </section>
     )
 }
 
-export default SpinLoader;
+export default BaseLoader;

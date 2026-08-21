@@ -1,5 +1,5 @@
 import { type FC } from "react"
-import InputError from "../Notifications/InputError";
+import { InputError } from "../Notifications"
 
 
 type Props = {

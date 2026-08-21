@@ -1,7 +1,7 @@
 import { faWifi, faXmark } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, type FC } from "react";
-import { useGlobalErrorStore } from "../../Stores/useGlobalErrorStore";
+import { useGlobalErrorStore } from "../../Stores";
 
 
 type Props = {
