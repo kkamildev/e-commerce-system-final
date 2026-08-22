@@ -8,6 +8,7 @@ import { CopyBlock, CodeBlock } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpinLoader } from "./Utils/Components/Loaders";
+import LoadingBar from "./Utils/Components/LoadingBars/LoadingBar";
 
 
 type Props = {
@@ -83,6 +84,11 @@ const App : FC<Props> = ({}) => {
                 <button type="submit" className="btn bg-green-900 hover:bg-green-800">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
                 <SpinLoader reqId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faSpinner}/></SpinLoader>
+                <LoadingBar
+                    progress={30}
+                    style="bg-black! h-2!"
+                    procentVisible
+                />
             </Form>
         </>
     )
