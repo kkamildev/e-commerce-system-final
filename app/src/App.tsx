@@ -8,7 +8,9 @@ import { CopyBlock, CodeBlock } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpinLoader } from "./Utils/Components/Loaders";
-import LoadingBar from "./Utils/Components/LoadingBars/LoadingBar";
+import ProcentBar from "./Utils/Components/Bars/ProcentBar";
+import { AmountBar } from "./Utils/Components/Bars";
+import { GradientBorderWrap, GradientWrap } from "./Utils/Components/Text";
 
 
 type Props = {
@@ -41,6 +43,12 @@ const App : FC<Props> = ({}) => {
             <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-green-700/50 items-start rounded-xl min-h-screen"
                 onSubmit={() => alert("Form complete")}
             >
+                <GradientWrap style="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500">
+                    <h1 className="text-4xl font-bold">Text effect</h1>
+                </GradientWrap>
+                <GradientBorderWrap style="m-2 from-pink-600 to-blue-900 rounded-xl">
+                    <p className="p-2 bg-zinc-900 text-white font-bold text-2xl rounded-xl">Hello world</p>
+                </GradientBorderWrap>
                 <RadioGroup
                     style="my-4 mx-2"
                     buttons={[
@@ -81,13 +89,20 @@ const App : FC<Props> = ({}) => {
                     style="w-100 max-w-100"
                 />
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
-                <button type="submit" className="btn bg-green-900 hover:bg-green-800">Submit Form</button>
+                <button type="submit" className="btn bg-linear-to-bl from-green-700 to-green-900 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
                 <SpinLoader reqId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faSpinner}/></SpinLoader>
-                <LoadingBar
+                <ProcentBar
                     progress={30}
-                    style="bg-black! h-2!"
+                    style="bg-black! h-4!"
+                    barStyle="transition-all duration-300 ease-in-out bg-gradient-to-r from-green-500 to-green-800"
                     procentVisible
+                />
+                <AmountBar
+                    amount={10}
+                    maxAmount={50}
+                    style="bg-black! h-4!"
+                    barStyle="transition-all duration-300 ease-in-out bg-green-500"
                 />
             </Form>
         </>
