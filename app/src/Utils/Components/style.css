@@ -5,6 +5,14 @@
     UTILS STYLES
 */
 
+html, body {
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow-x: hidden !important;
+  position: relative;
+}
+
+
 @layer utilities {
   .custom-scroll-dark::-webkit-scrollbar {
     width: 8px;
@@ -80,7 +88,14 @@ body {
   from { transform: translateY(20px); opacity: 0; }
   to { transform: translateY(0); opacity: 1; }
 }
+@keyframes slide-down {
+  from { transform: translateY(0); opacity: 1; }
+  to { transform: translateY(20px); opacity: 0; }
+}
 
 .animate-slide-up {
-  animation: slide-up 0.5s ease-out;
+  animation: slide-up 0.5s ease-out forwards;
+}
+.animate-slide-down {
+  animation: slide-down 0.5s ease-out forwards;
 }

@@ -1,16 +1,15 @@
 import { useRef, useState, type FC } from "react";
-import { faPlus, faSpinner, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
+import { faPlus, faQuestionCircle, faSpinner, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import {useLoadingStore, useNotifStore} from "./Utils/Stores"
 import {GlobalErrorNotification, InputSuccess} from "./Utils/Components/Notifications"
 import { NotifStack, FixedButton} from "./Utils/Components/Popups";
 import { Form, RadioGroup, Dropdown, InputField } from "./Utils/Components/Input";
-import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock } from "./Utils/Components/Blocks";
+import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock, Carousel, BackgroundImageBlock } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpinLoader } from "./Utils/Components/Loaders";
 import { AmountBar, Circle, ProcentBar} from "./Utils/Components/Bars";
-import { GradientBorderWrap, GradientWrap } from "./Utils/Components/Text";
-import BackgroundImageBlock from "./Utils/Components/Blocks/BackgroundImageBlock";
+import { GradientBorderWrap, GradientWrap, ToolTipWrap } from "./Utils/Components/Text";
 
 
 type Props = {
@@ -40,15 +39,15 @@ const App : FC<Props> = ({}) => {
                 style="bg-green-600! text-xl hover:scale-100! hover:bg-green-500!"
                 icon={faPlus}
                 onClick={() => alert("You have done something")}
-            
             />
+
             <BackgroundImageBlock style="h-screen bg-black/50 relative" imageUrl="https://aboutme.pixlesofte.com/assets/e-commerce1-CFNExiir.png">
                 <div className="absolute h-full w-full bg-black/85 flex justify-center items-center">
                     <section className="flex flex-col items-center gap-y-4">
-                        <GradientWrap style="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 h-20">
+                        <GradientWrap style="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 text-center pb-5">
                             <h1 className="text-5xl font-bold">Event is incomming</h1>
                         </GradientWrap>
-                        <p className="text-3xl font-bold">In two days</p>
+                        <p className="text-3xl font-bold text-white">In two days</p>
                     </section>
                 </div>
             </BackgroundImageBlock>
@@ -58,15 +57,21 @@ const App : FC<Props> = ({}) => {
                 <GradientBorderWrap style="m-2 from-pink-600 to-blue-900 rounded-xl">
                     <p className="p-2 bg-zinc-900 text-white font-bold text-2xl rounded-xl">Hello world</p>
                 </GradientBorderWrap>
-                <RadioGroup
-                    style="my-4 mx-2"
-                    buttons={[
-                        {title:"Filter", value:"something1"},
-                        {title:"Range", value:"something2"}
-                    ]}
-                    onChange={(value) => setFilterValue(value)}
-                    value={filterValue}
-                />
+                <Carousel widthPerComponent={64}>
+                    <ToolTipWrap text="To help it you must install specific software on your computer" style="font-bold text-lg! top-[20px]! w-[200px]!">
+                        <BackgroundImageBlock style="snap-center shrink-0 w-64! h-50 bg-red-400 rounded-xl" imageUrl="https://aboutme.pixlesofte.com/assets/e-commerce1-CFNExiir.png"></BackgroundImageBlock>
+                    </ToolTipWrap>
+                    <BackgroundImageBlock style="snap-center shrink-0 w-64! h-50 bg-red-400 rounded-xl" imageUrl="https://aboutme.pixlesofte.com/assets/e-commerce1-CFNExiir.png"></BackgroundImageBlock>
+                </Carousel>
+                    <RadioGroup
+                        style="my-4 mx-2"
+                        buttons={[
+                            {title:"Filter", value:"something1"},
+                            {title:"Range", value:"something2"}
+                        ]}
+                        onChange={(value) => setFilterValue(value)}
+                        value={filterValue}
+                    />
                 <Dropdown
                     style="max-w-[300px] font-bold border-none!"
                     downStyle="dark:bg-zinc-900"
@@ -90,28 +95,28 @@ const App : FC<Props> = ({}) => {
                 <CodeBlock
                     title="API key"
                     language=""
-                    style="text-green-600! w-100"
+                    style="text-green-600! w-60 lg:w-100"
                     code='jnjfefewfnfn1'
                 />
                 <CopyBlock
                     dataToCopy="ijhyutihubifilwffwefwfegergegergreege"
-                    style="w-100 max-w-100"
+                    style="lg:w-100 lg:max-w-100 w-60 max-w-60"
                 />
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
                 <button ref={ref} type="submit" className="btn bg-linear-to-bl from-green-700 to-green-900 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
                 <SpinLoader reqId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faSpinner}/></SpinLoader>
-                <ScrollShowBlock style="w-full">
+                <ScrollShowBlock style="w-full z-0!">
                     <ProcentBar
                         progress={30}
-                        style="bg-black! h-4!"
+                        style="dark:bg-black! bg-zinc-200! h-4!"
                         barStyle="transition-all duration-300 ease-in-out bg-gradient-to-r from-green-500 to-green-800"
                         procentVisible
                     />
                     <AmountBar
                         amount={10}
                         maxAmount={50}
-                        style="bg-black! h-4!"
+                        style="dark:bg-black! bg-zinc-200! h-4!"
                         barStyle="transition-all duration-300 ease-in-out bg-green-500"
                     />
                     <Circle
@@ -119,11 +124,17 @@ const App : FC<Props> = ({}) => {
                         style="w-20! h-20!"
                     />
                 </ScrollShowBlock>
-                <RefResponsibleBlock targetRef={ref} style="fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out" unActiveStyle="translate-y-[-100%] pointer-events-none">
+                <RefResponsibleBlock targetRef={ref} style="fixed top-0 left-0 right-0 transition-all duration-300 ease-in-out z-30" unActiveStyle="translate-y-[-100%] pointer-events-none">
                     <section className="flex justify-center w-full bg-zinc-500 h-20">
                         <h1 className="text-white text-2xl">Hello world</h1>
                     </section>
                 </RefResponsibleBlock>
+                <ToolTipWrap text="To help it you must install specific software on your computer" style="font-bold text-lg! top-[-100px]! w-[200px]!">
+                    <section className="flex items-center gap-x-1 text-2xl m-2 p-1 btn bg-green-800 hover:bg-green-700">
+                        <p>Any help?</p>
+                        <button type="button"><FontAwesomeIcon icon={faQuestionCircle}/></button>
+                    </section>
+                </ToolTipWrap>
             </Form>
             <h1 className="h-screen"></h1>
         </>
