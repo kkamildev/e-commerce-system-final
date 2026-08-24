@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpinLoader } from "./Utils/Components/Loaders";
 import { AmountBar, Circle, ProcentBar} from "./Utils/Components/Bars";
 import { GradientBorderWrap, GradientWrap } from "./Utils/Components/Text";
+import BackgroundImageBlock from "./Utils/Components/Blocks/BackgroundImageBlock";
 
 
 type Props = {
@@ -41,12 +42,19 @@ const App : FC<Props> = ({}) => {
                 onClick={() => alert("You have done something")}
             
             />
+            <BackgroundImageBlock style="h-screen bg-black/50 relative" imageUrl="https://aboutme.pixlesofte.com/assets/e-commerce1-CFNExiir.png">
+                <div className="absolute h-full w-full bg-black/85 flex justify-center items-center">
+                    <section className="flex flex-col items-center gap-y-4">
+                        <GradientWrap style="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500 h-20">
+                            <h1 className="text-5xl font-bold">Event is incomming</h1>
+                        </GradientWrap>
+                        <p className="text-3xl font-bold">In two days</p>
+                    </section>
+                </div>
+            </BackgroundImageBlock>
             <Form title="Hello world" style="max-w-[500px] shadow-xl shadow-green-700/50 items-start rounded-xl min-h-screen"
                 onSubmit={() => alert("Form complete")}
             >
-                <GradientWrap style="bg-linear-to-r from-blue-500 via-purple-500 to-pink-500">
-                    <h1 ref={ref} className="text-4xl font-bold">Text effect</h1>
-                </GradientWrap>
                 <GradientBorderWrap style="m-2 from-pink-600 to-blue-900 rounded-xl">
                     <p className="p-2 bg-zinc-900 text-white font-bold text-2xl rounded-xl">Hello world</p>
                 </GradientBorderWrap>
@@ -90,7 +98,7 @@ const App : FC<Props> = ({}) => {
                     style="w-100 max-w-100"
                 />
                 <BaseSeparator style="mx-2 w-[300px]! h-[1px]!"/>
-                <button type="submit" className="btn bg-linear-to-bl from-green-700 to-green-900 btn-show">Submit Form</button>
+                <button ref={ref} type="submit" className="btn bg-linear-to-bl from-green-700 to-green-900 btn-show">Submit Form</button>
                 <InputSuccess content="Everything is okay"/>
                 <SpinLoader reqId="1"><FontAwesomeIcon className="dark:text-white text-2xl" icon={faSpinner}/></SpinLoader>
                 <ScrollShowBlock style="w-full">
