@@ -2,7 +2,7 @@ import { useRef, useState, type FC } from "react";
 import { faPlus, faQuestionCircle, faSpinner, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
 import {useLoadingStore, useNotifStore} from "./Utils/Stores"
 import {GlobalErrorNotification, InputSuccess} from "./Utils/Components/Notifications"
-import { NotifStack, FixedButton} from "./Utils/Components/Popups";
+import { NotifStack, FixedButton, CenterPopup, LeftSlider, RightSlider, PopUpButton, PopUpLayout} from "./Utils/Components/Popups";
 import { Form, RadioGroup, Dropdown, InputField } from "./Utils/Components/Input";
 import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock, Carousel, BackgroundImageBlock, Accordion, Pagination } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
@@ -155,6 +155,12 @@ const App : FC<Props> = ({}) => {
                     <button type="button" className="btn" onClick={() => setPage((prev) => prev+= 1)}>Next</button>
                 </section>
             </Form>
+            <PopUpButton onClick={() => {}} popUp={
+                <PopUpLayout>
+                    <h1>Hello world</h1>
+            </PopUpLayout>}>
+                    CLick me
+            </PopUpButton>
             <h1 className="h-screen"></h1>
         </>
     )

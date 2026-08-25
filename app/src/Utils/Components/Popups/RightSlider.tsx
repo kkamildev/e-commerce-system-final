@@ -3,15 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { animate, JSAnimation } from "animejs";
 import { useEffect, useRef, useState, type FC, type ReactNode } from "react";
 import { useKeyboard } from "../../Hooks";
+import { lockScroll, unlockScroll } from "../../Scroll";
 
 type Props = {
     children:ReactNode,
     button:ReactNode,
     buttonStyle?:string,
-    style?:string
+    style?:string,
+    scrollLock?:boolean
 }
 
-const RightSlider : FC<Props> = ({children, button, buttonStyle = "", style = ""}) => {
+const RightSlider : FC<Props> = ({children, button, buttonStyle = "", style = "", scrollLock = false}) => {
 
     const [display, setDisplay] = useState<boolean>(false);
 
@@ -25,6 +27,13 @@ const RightSlider : FC<Props> = ({children, button, buttonStyle = "", style = ""
     const sliderRef = useRef(null);
     
     useEffect(() => {
+        if(scrollLock) {
+            if(display) {
+                lockScroll();   
+            } else {
+                unlockScroll()
+            }
+        }
         if (!sliderRef.current) return;
         
         let animation : JSAnimation;
@@ -67,10 +76,10 @@ const RightSlider : FC<Props> = ({children, button, buttonStyle = "", style = ""
     return (
         <>
             <div onClick={() => setDisplay(false)} 
-            className={`fixed top-0 bottom-0 left-0 right-0 z-15 bg-black ${display ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"} transition-all duration-700 ease-in-out`}>
+            className={`fixed top-0 bottom-0 left-0 right-0 z-30 bg-black ${display ? "opacity-50 pointer-events-auto" : "opacity-0 pointer-events-none"} transition-all duration-700 ease-in-out`}>
 
             </div>
-            <aside ref={sliderRef} className={`${style} top-0 bottom-0 fixed z-20`}>
+            <aside ref={sliderRef} className={`${style} top-0 bottom-0 fixed z-40`}>
                 <section className="flex justify-start">
                     <FontAwesomeIcon icon={faXmark}
                     className="text-2xl m-4 dark:text-white text-zinc-950 cursor-pointer"

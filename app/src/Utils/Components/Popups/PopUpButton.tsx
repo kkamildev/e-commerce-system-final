@@ -58,7 +58,7 @@ const PopUpButton : FC<Props> = ({children, popUp, style = "", onClick}) => {
             <button type="button" className={`${style} btn`} onMouseEnter={() => setDisplay(true)} onMouseOut={() => setDisplay(false)} onClick={onClick}>
                 {children}
             </button>
-            <section ref={boxRef} className={`absolute`}>
+            <section ref={boxRef} className={`absolute pointer-events-none`}>
                 {popUp}
             </section>
         </>

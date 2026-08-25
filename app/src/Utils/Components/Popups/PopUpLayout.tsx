@@ -29,7 +29,7 @@ const PopUpLayout : FC<Props> = ({style = "", children}) => {
     }, []);
 
     return (
-        <section ref={boxRef} className={`fixed top-0 left-0 ${style} z-50`}>
+        <section ref={boxRef} className={`fixed top-0 left-0 ${style} z-30`}>
             {children}
         </section>
     )
