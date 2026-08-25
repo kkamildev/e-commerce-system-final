@@ -4,7 +4,7 @@ import {useLoadingStore, useNotifStore} from "./Utils/Stores"
 import {GlobalErrorNotification, InputSuccess} from "./Utils/Components/Notifications"
 import { NotifStack, FixedButton} from "./Utils/Components/Popups";
 import { Form, RadioGroup, Dropdown, InputField } from "./Utils/Components/Input";
-import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock, Carousel, BackgroundImageBlock } from "./Utils/Components/Blocks";
+import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock, Carousel, BackgroundImageBlock, Accordion, Pagination } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SpinLoader } from "./Utils/Components/Loaders";
@@ -25,6 +25,7 @@ const App : FC<Props> = ({}) => {
 
     const [filterValue, setFilterValue] = useState<string>("something1");
     const [value, setValue] = useState<string>("");
+    const [page, setPage] = useState<number>(0);
 
     const ref = useRef(null);
 
@@ -135,6 +136,24 @@ const App : FC<Props> = ({}) => {
                         <button type="button"><FontAwesomeIcon icon={faQuestionCircle}/></button>
                     </section>
                 </ToolTipWrap>
+                <Accordion title="Can I trust you?" buttonStyle="text-2xl font-bold!">
+                    NO... this is so illegal company lol Lorem ipsum dolor sit amet consectetur adipisicing elit. Mollitia quasi voluptatum minima. Modi aut enim nemo tenetur dolore rerum explicabo suscipit consequuntur sit a, dicta molestias quia, architecto excepturi at.
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Quia enim unde ullam ipsum sequi officia distinctio inventore deleniti consectetur facilis optio nobis ratione, eos voluptas molestiae, suscipit sint sapiente a?
+                </Accordion>
+                <Pagination
+                    components={[
+                        <h1>Hello world page 1</h1>,
+                        <h1>Hello world page 2</h1>,
+                        <h1>Hello world page 3</h1>,
+                        <h1>Hello world page 4</h1>
+                    ]}
+                    componentsPerPage={2}
+                    pageIndex={page}
+                />
+                <section>
+                    <button type="button" className="btn" onClick={() => setPage((prev) => prev-= 1)}>Prev</button>
+                    <button type="button" className="btn" onClick={() => setPage((prev) => prev+= 1)}>Next</button>
+                </section>
             </Form>
             <h1 className="h-screen"></h1>
         </>
