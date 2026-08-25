@@ -14,7 +14,7 @@ const Pagination : FC<Props> = ({components, pageIndex = 0, style = "", componen
 
     return (
         <section className={`${style}`}>
-            {components.filter((_obj, index) => index >= minIndex && index < maxIndex)}
+            {components.filter((_obj, index) => index >= minIndex && index < maxIndex).map((obj, index) => <section key={index}>{obj}</section>)}
         </section>
     )
 }

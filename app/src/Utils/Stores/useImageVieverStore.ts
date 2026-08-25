@@ -1,14 +1,18 @@
 import { create } from "zustand"
 
-
+export type Image = {
+    url:string,
+    title:string
+}
 
 type ImageVieverState = {
     active:boolean,
-    images:string[],
+    images:Image[],
     imageIndex:number,
-    prepare:(images : string[], imageIndex : number) => void,
+    addIndex:(indexToAdd : number) => void,
+    prepare:(images : Image[], imageIndex : number) => void,
     clear:() => void,
-    getCurrentImage:() => string,
+    getCurrentImage:() => Image,
 }
 
 const useImageVieverStore = create<ImageVieverState>((set, get) => ({
@@ -16,7 +20,8 @@ const useImageVieverStore = create<ImageVieverState>((set, get) => ({
     images:[],
     imageIndex:0,
     prepare:(images, imageIndex) => set(() => ({images, imageIndex, active:true})),
-    clear:() => set(() => ({images:[], imageIndex:0, active:false})),
+    addIndex:(indexToAdd) => set((store) => ({imageIndex:store.imageIndex + indexToAdd})),
+    clear:() => set(() => ({active:false})),
     getCurrentImage:() => get().images[get().imageIndex]
 }))
 

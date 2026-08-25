@@ -1,8 +1,8 @@
 import { useRef, useState, type FC } from "react";
 import { faPlus, faQuestionCircle, faSpinner, faUser, faUserCircle } from "@fortawesome/free-solid-svg-icons";
-import {useLoadingStore, useNotifStore} from "./Utils/Stores"
+import {useImageVieverStore, useLoadingStore, useNotifStore} from "./Utils/Stores"
 import {GlobalErrorNotification, InputSuccess} from "./Utils/Components/Notifications"
-import { NotifStack, FixedButton, CenterPopup, LeftSlider, RightSlider, PopUpButton, PopUpLayout} from "./Utils/Components/Popups";
+import { NotifStack, FixedButton, PopUpButton, PopUpLayout, ImageViever} from "./Utils/Components/Popups";
 import { Form, RadioGroup, Dropdown, InputField } from "./Utils/Components/Input";
 import { CopyBlock, CodeBlock, ScrollShowBlock, RefResponsibleBlock, Carousel, BackgroundImageBlock, Accordion, Pagination } from "./Utils/Components/Blocks";
 import { BaseSeparator } from "./Utils/Components/Separators";
@@ -19,9 +19,10 @@ type Props = {
 const App : FC<Props> = ({}) => {
 
 
-    const addLoader = useLoadingStore((store) => store.addLoader)
     const deleteLoader = useLoadingStore((store) => store.deleteLoader)
     const addNotif = useNotifStore((store) => store.addNotif);
+
+    const prepareImage = useImageVieverStore((store) => store.prepare);
 
     const [filterValue, setFilterValue] = useState<string>("something1");
     const [value, setValue] = useState<string>("");
@@ -32,6 +33,7 @@ const App : FC<Props> = ({}) => {
     return (
         <>
             <GlobalErrorNotification/>
+            <ImageViever/>
             <NotifStack
                 style="shadow-lg shadow-green-600/50 font-bold lg:block hidden"
                 buttonStyle="bg-green-700! hover:bg-green-600!"
@@ -78,7 +80,10 @@ const App : FC<Props> = ({}) => {
                     downStyle="dark:bg-zinc-900"
                     iconStyle='text-green-500!'
                     options={[
-                        {value:"Loading", icon:faUser, onClick:() => addLoader("1")},
+                        {value:"Loading", icon:faUser, onClick:() => prepareImage([
+                            {title:"Hello world", url:"https://aboutme.pixlesofte.com/assets/e-commerce1-CFNExiir.png"},
+                            {title:"Hello world", url:"https://aboutme.pixlesofte.com/assets/portfolio1-BM5_r4Dt.png"}
+                        ], 0)},
                         {value:"Not loading ", onClick:() => deleteLoader("1")},
                         {value:"Add notif", onClick:() => addNotif("You got a message", () => {})}
                     ]}
